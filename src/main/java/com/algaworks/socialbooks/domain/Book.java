@@ -2,11 +2,15 @@ package com.algaworks.socialbooks.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
@@ -22,6 +26,7 @@ public class Book {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String summary;
 
+    @Transient
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Review> reviews;
 
