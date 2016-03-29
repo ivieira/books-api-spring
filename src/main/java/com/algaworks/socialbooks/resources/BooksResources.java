@@ -3,10 +3,7 @@ package com.algaworks.socialbooks.resources;
 import com.algaworks.socialbooks.domain.Book;
 import com.algaworks.socialbooks.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,5 +22,10 @@ public class BooksResources {
     @RequestMapping(method = RequestMethod.POST)
     public void save(@RequestBody Book book) {
         booksRepository.save(book);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Book find(@PathVariable("id") Long id) {
+        return booksRepository.findOne(id);
     }
 }
