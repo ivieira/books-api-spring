@@ -1,22 +1,31 @@
 package com.algaworks.socialbooks.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.Date;
 import java.util.List;
 
 public class Book {
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String title;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Date datePublished;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String publisher;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String summary;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Review> reviews;
 
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private String author;
 
     public Book() {}
