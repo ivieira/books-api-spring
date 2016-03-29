@@ -3,6 +3,7 @@ package com.algaworks.socialbooks.resources;
 import com.algaworks.socialbooks.domain.Book;
 import com.algaworks.socialbooks.repository.BooksRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,5 +33,11 @@ public class BooksResources {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable("id") Long id) {
         booksRepository.delete(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public void update(@RequestBody Book book, @PathVariable("id") Long id) {
+        book.setId(id);
+        booksRepository.save(book);
     }
 }
