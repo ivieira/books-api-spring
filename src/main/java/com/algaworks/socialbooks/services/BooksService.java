@@ -61,6 +61,11 @@ public class BooksService {
         return reviewsRepository.save(review);
     }
 
+    public List<Review> listReviews(Long bookId) {
+        Book book = find(bookId);
+        return book.getReviews();
+    }
+
     private void exists(Book book) {
         find(book.getId());
     }

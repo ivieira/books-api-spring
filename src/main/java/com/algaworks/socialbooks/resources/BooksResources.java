@@ -57,4 +57,10 @@ public class BooksResources {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
         return ResponseEntity.created(uri).build();
     }
+
+    @RequestMapping(value = "/{id}/reviews", method = RequestMethod.GET)
+    public ResponseEntity<List<Review>> listReviews(@PathVariable("id") Long bookId) {
+        List<Review> reviews = booksService.listReviews(bookId);
+        return ResponseEntity.status(HttpStatus.OK).body(reviews);
+    }
 }
