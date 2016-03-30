@@ -1,12 +1,15 @@
 package com.algaworks.socialbooks.services;
 
 import com.algaworks.socialbooks.domain.Book;
+import com.algaworks.socialbooks.domain.Review;
 import com.algaworks.socialbooks.repository.BooksRepository;
+import com.algaworks.socialbooks.repository.ReviewsRepository;
 import com.algaworks.socialbooks.services.exceptions.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -14,6 +17,9 @@ public class BooksService {
 
     @Autowired
     private BooksRepository booksRepository;
+
+    @Autowired
+    private ReviewsRepository reviewsRepository;
 
     public List<Book> list() {
         return booksRepository.findAll();
@@ -43,6 +49,16 @@ public class BooksService {
     public void update(Book book) {
         exists(book);
         booksRepository.save(book);
+    }
+
+    public Review saveReview(Long bookId, Review review) {
+        Book book = find(bookId);
+
+        review.setId(null);
+        review.setBook(book);
+        review.setDate(new Date());
+
+        return reviewsRepository.save(review);
     }
 
     private void exists(Book book) {

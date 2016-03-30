@@ -1,6 +1,7 @@
 package com.algaworks.socialbooks.resources;
 
 import com.algaworks.socialbooks.domain.Book;
+import com.algaworks.socialbooks.domain.Review;
 import com.algaworks.socialbooks.services.BooksService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,12 @@ public class BooksResources {
         book.setId(id);
         booksService.update(book);
         return ResponseEntity.noContent().build();
+    }
+
+    @RequestMapping(value = "/{id}/reviews", method = RequestMethod.POST)
+    public ResponseEntity<Void> addReview(@PathVariable("id") Long bookId, @RequestBody Review review) {
+        booksService.saveReview(bookId, review);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+        return ResponseEntity.created(uri).build();
     }
 }

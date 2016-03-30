@@ -26,7 +26,7 @@ public class Book {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String summary;
 
-    @Transient
+    @OneToMany(mappedBy = "book")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Review> reviews;
 
