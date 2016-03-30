@@ -30,8 +30,10 @@ public class Book {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private List<Review> reviews;
 
+    @ManyToOne
+    @JoinColumn(name = "AUTHOR_ID")
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private String author;
+    private Author author;
 
     public Book() {}
 
@@ -87,11 +89,11 @@ public class Book {
         this.reviews = reviews;
     }
 
-    public String getAuthor() {
+    public Author getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(Author author) {
         this.author = author;
     }
 }
