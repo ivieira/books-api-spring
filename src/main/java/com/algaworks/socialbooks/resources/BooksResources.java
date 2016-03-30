@@ -2,7 +2,6 @@ package com.algaworks.socialbooks.resources;
 
 import com.algaworks.socialbooks.domain.Book;
 import com.algaworks.socialbooks.services.BooksService;
-import com.algaworks.socialbooks.services.exceptions.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,34 +33,20 @@ public class BooksResources {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> find(@PathVariable("id") Long id) {
-        Book book;
-        try {
-            book = booksService.find(id);
-        } catch (BookNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Book book = booksService.find(id);
         return ResponseEntity.status(HttpStatus.OK).body(book);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
-        try {
-            booksService.delete(id);
-        } catch (BookNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        booksService.delete(id);
         return ResponseEntity.noContent().build();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> update(@RequestBody Book book, @PathVariable("id") Long id) {
         book.setId(id);
-        try {
-            booksService.update(book);
-        } catch (BookNotFoundException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+        booksService.update(book);
         return ResponseEntity.noContent().build();
     }
 }
